@@ -3,12 +3,12 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Auto Play Music Online</title>
+  <title>Autoplay Musik Online</title>
   <style>
     body{
       margin:0;
-      background:#0f1724;
-      color:#fff;
+      background:#111827;
+      color:#f9fafb;
       font-family:sans-serif;
       display:flex;
       flex-direction:column;
@@ -17,6 +17,8 @@
       height:100vh;
       text-align:center;
     }
+    h1{margin-bottom:8px;font-size:2rem}
+    p{margin-bottom:24px;color:#d1d5db}
     button{
       background:#06b6d4;
       border:none;
@@ -26,60 +28,50 @@
       font-weight:600;
       cursor:pointer;
       color:#fff;
+      margin-top:16px;
     }
     #overlay{
       position:fixed;inset:0;display:none;
       background:rgba(0,0,0,0.7);
       justify-content:center;align-items:center;
+      z-index:50;
     }
     #overlay.show{display:flex}
   </style>
 </head>
 <body>
-  <h1>Musik Online Auto Play</h1>
-  <p>Coba autoplay. Kalau diblokir (HP), tekan tombol di bawah.</p>
-
-  <button id="playPause">Play</button>
+  <h1>🎶 Autoplay Musik</h1>
+  <p>Mencoba autoplay musik online.<br>Kalau tidak jalan di HP, tekan tombol di bawah.</p>
 
   <div id="overlay">
     <button id="overlayBtn">Ketuk untuk Nyalakan Musik</button>
   </div>
 
-  <!-- ganti src dengan URL mp3 online -->
+  <!-- link musik online -->
   <audio id="bg-audio" loop preload="auto"
     src="https://papajigang.github.io/test/Music.mp3"></audio>
 
   <script>
     const audio = document.getElementById('bg-audio');
-    const playBtn = document.getElementById('playPause');
     const overlay = document.getElementById('overlay');
     const overlayBtn = document.getElementById('overlayBtn');
 
-    // autoplay try
+    // coba autoplay saat load
     window.addEventListener('load', async () => {
       try {
         await audio.play();
-        playBtn.textContent = 'Pause';
       } catch(e){
+        // autoplay diblokir
         overlay.classList.add('show');
       }
     });
 
+    // tombol overlay untuk memutar
     overlayBtn.addEventListener('click', async () => {
       try{
         await audio.play();
         overlay.classList.remove('show');
-        playBtn.textContent='Pause';
       }catch(e){}
-    });
-
-    playBtn.addEventListener('click', async () => {
-      if(audio.paused){
-        try{await audio.play();playBtn.textContent='Pause';}catch(e){overlay.classList.add('show');}
-      } else {
-        audio.pause();
-        playBtn.textContent='Play';
-      }
     });
   </script>
 </body>
