@@ -1,19 +1,35 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Autoplay Musik</title>
+    <title>Pemutar Musik</title>
+    <style>
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
-    <audio id="musik" autoplay loop>
-        <source src="musik.mp3" type="audio/mp3">
+    <audio id="musik" loop>
+        <source src="Musik.mp3" type="audio/mp3">
         Browser Anda tidak mendukung tag audio.
     </audio>
 
+    <button id="playButton">Play</button>
+
     <script>
-        // Optional: memastikan autoplay berfungsi di browser modern
-        document.addEventListener('DOMContentLoaded', function() {
-            var musik = document.getElementById('musik');
-            musik.play();
+        var musik = document.getElementById('musik');
+        var playButton = document.getElementById('playButton');
+
+        playButton.addEventListener('click', function() {
+            if (musik.paused) {
+                musik.play();
+                playButton.textContent = 'Pause';
+            } else {
+                musik.pause();
+                playButton.textContent = 'Play';
+            }
         });
     </script>
 </body>
